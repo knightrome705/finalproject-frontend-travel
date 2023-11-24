@@ -1,8 +1,101 @@
+import 'dart:convert';
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel/Booknow.dart';
+import 'package:travel/Models/Packages.dart';
 
-class HomeProvider extends ChangeNotifier{
+class homeProvider extends ChangeNotifier {
+  var result;
+  bool isSingleTrip = true;
+  Future viewPackages() async {
+    Response response = await get(Uri.parse(
+        "http://192.168.230.94/PHP/finalproject/API/view_packages_api.php"));
+    if (response.statusCode == 200) {
+      // final packages = packagesFromJson(response.body);
+       var result = jsonDecode(response.body);
 
+      return result;
+    }
+  }
 
+  void showSheet(BuildContext context,String p_id, String pkgName,String pkgDescription, String pkgImg, String pkgSecImg) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.only(top: 10,left: 10,right: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(pkgName,style: TextStyle(fontSize: 30,fontStyle: FontStyle.italic,fontWeight: FontWeight.bold),),
+              CarouselSlider(
+                options: CarouselOptions(height:250,autoPlay: true,autoPlayInterval: Duration(seconds:1)),
+                items: [pkgImg, pkgSecImg].map((i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                            // color: Colors.amber,
+                            image: DecorationImage(
+                                fit: BoxFit.cover, image: NetworkImage("$i"))),
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
 
+              SizedBox(
+                height: 80,
+              ),
+              ElevatedButton(onPressed: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>Conform(p_id: p_id,p_image: pkgImg,description:pkgDescription,p_name:pkgName)));
+              },
+                  style: ButtonStyle(
+                      backgroundColor:MaterialStatePropertyAll(Colors.red),
+                      minimumSize: MaterialStatePropertyAll(
+                          Size(double.infinity,50)
+                      )
+                  ),
+                  child: Text("Join now"))
+            ],
+          ),
+        );
+      },
+    );
+    notifyListeners();
+  }
+  int? user_id;
+  Future userCrenditails() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    int? result = await sharedPreferences.getInt("user_crenditals");
+      user_id = result;
+      notifyListeners();
+  }
+  var image;
+  Future getUser() async {
+    var user = {"id": user_id.toString()};
+    Response response = await post(
+        Uri.parse(
+            "http://192.168.230.94/PHP/finalproject/API/view_user_api.php"),
+        body: user);
 
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+        image=data["data"]["photo"];
+    }
+    notifyListeners();
+  }
+  void loginUser()async{
+    SharedPreferences prefer=await SharedPreferences.getInstance();
+    prefer.setBool("user_logged", false);
+    prefer.remove("user_crenditals");
+    Fluttertoast.showToast(msg: "Exit");
+    notifyListeners();
+  }
 }

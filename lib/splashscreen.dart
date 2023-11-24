@@ -3,7 +3,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel/BottomNavigator.dart';
-import 'package:travel/home.dart';
 import 'package:travel/login.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,13 +13,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   void checkLogin() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
+    // print(pref.getBool('user_logged'));
     final userLoginCred = pref.getBool('user_logged');
     if(userLoginCred ==true){
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNav(),));
@@ -30,10 +26,15 @@ class _SplashScreenState extends State<SplashScreen> {
       Fluttertoast.showToast(msg: "Please login");
     }
   }
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(Duration(seconds: 3)).whenComplete(() => checkLogin());
+  }
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 3)).whenComplete(() => checkLogin());
+
     return  Scaffold(
       body: Center(
         child:Lottie.asset("assests/Animation - 1700198877031.json"),

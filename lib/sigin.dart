@@ -1,113 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:travel/Provider/siginProvider.dart';
 import 'package:travel/login.dart';
 
-class Siginup extends StatefulWidget {
+class Siginup extends StatelessWidget {
   @override
-  SiginupState createState() {
-    return SiginupState();
-  }
-}
-
-class SiginupState extends State<Siginup> {
-  @override
-  XFile? _image;
-  bool secure = true;
-  pickImageFromgallery() async {
-    ImagePicker imagePicker = ImagePicker();
-    XFile? xFile = await imagePicker.pickImage(source: ImageSource.gallery);
-    if (xFile != null) {
-      setState(() {
-        _image = xFile;
-      });
-    }
-  }
-
-  pickImageFromCamera() async {
-    ImagePicker imagePicker = ImagePicker();
-    XFile? xFile = await imagePicker.pickImage(source: ImageSource.camera);
-    if (xFile != null) {
-      setState(() {
-        _image = xFile;
-      });
-    }
-  }
-
-  TextEditingController first_name = TextEditingController();
-  TextEditingController last_name = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController phone = TextEditingController();
-  TextEditingController password = TextEditingController();
-  final GlobalKey<FormState> formkey = GlobalKey();
-  Future addUser() async {
-    final uri=Uri.parse("http://192.168.230.94/PHP/finalproject/API/add_user_api.php");
-    var request=http.MultipartRequest("POST",uri);
-    request.fields["first_name"]=first_name.text;
-    request.fields["last_name"]=last_name.text;
-    request.fields["email"]=email.text;
-    request.fields["phone"]=phone.text;
-    request.fields["password"]=password.text;
-    var pic=await http.MultipartFile.fromPath("photo",_image!.path);
-    request.files.add(pic);
-    var response=await request.send();
-    if(response.statusCode==200){
-      print("Sucess");
-      Fluttertoast.showToast(msg: "Registerd");
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login(),));
-    }else{
-      Fluttertoast.showToast(msg: "Failed");
-    }
-  }
-
-  void selectCameraorGallery() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => Container(
-        height: 200,
-        child: Row(
-          children: [
-            Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          pickImageFromCamera();
-                          Navigator.of(context).pop();
-                        },
-                        child: Icon(
-                          Icons.camera_alt,
-                          size: 40,
-                        )),
-                    Text("Camera")
-                  ],
-                )),
-            Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          pickImageFromgallery();
-                          Navigator.of(context).pop();
-                        },
-                        child: Icon(
-                          Icons.file_copy,
-                          size: 40,
-                        )),
-                    Text("Gallery")
-                  ],
-                ))
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -124,81 +23,81 @@ class SiginupState extends State<Siginup> {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Form(
-                key: formkey,
+                key: Provider.of<siginProvider>(context).formkey,
                 child: Column(
                   children: [
                     Text(
                       "SIGIN UP",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 10,
                     ),
                     Stack(
                       children: [
-                        _image == null
+                        Provider.of<siginProvider>(context).image == null
                             ? Container(
-                                height: 100,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                    color: Colors.red, shape: BoxShape.circle),
-                              )
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              color: Colors.red, shape: BoxShape.circle),
+                        )
                             : Container(
-                                height: 100,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: FileImage(File(_image!.path))),
-                                ),
-                              ),
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: FileImage(File(Provider.of<siginProvider>(context).image!.path))),
+                          ),
+                        ),
                         Positioned(
                             bottom: -10,
                             right: -10,
                             child: IconButton(
                                 onPressed: () {
-                                  selectCameraorGallery();
+                                  Provider.of<siginProvider>(context, listen: false).selectCameraorGallery(context: context);
+                                  // selectCameraorGallery();
                                   // pickImage();
                                 },
-                                icon: Icon(Icons.add_a_photo)))
+                                icon:const Icon(Icons.add_a_photo)))
                       ],
                     ),
-                    SizedBox(
+                   const SizedBox(
                       height: 20,
                     ),
                     SizedBox(
                       height: 40,
                       width: 280,
                       child: TextFormField(
-                        controller: first_name,
+                        controller: Provider.of<siginProvider>(context).first_name,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "please enter your first name";
                           }
                         },
                         decoration: InputDecoration(
-                            label: Text("first_name"),
+                            label:const Text("first_name"),
                             border: OutlineInputBorder()),
                       ),
                     ),
-                    SizedBox(
+                   const SizedBox(
                       height: 20,
                     ),
                     SizedBox(
                       height: 40,
                       width: 280,
                       child: TextFormField(
-                        controller: last_name,
+                        controller: Provider.of<siginProvider>(context).last_name,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "please enter your last name";
                           }
                         },
                         decoration: InputDecoration(
-                            label: Text("last name"),
+                            label:const Text("last name"),
                             border: OutlineInputBorder()),
                       ),
                     ),
@@ -209,10 +108,11 @@ class SiginupState extends State<Siginup> {
                       height: 40,
                       width: 280,
                       child: TextFormField(
-                        controller: email,
+                        controller: Provider.of<siginProvider>(context).email,
+                        keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           final RegExp _emailRegex =
-                              RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+                          RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
                           if (value!.isEmpty) {
                             return "please enter your email";
                           } else if (!_emailRegex.hasMatch(value)) {
@@ -223,14 +123,14 @@ class SiginupState extends State<Siginup> {
                             label: Text("Email"), border: OutlineInputBorder()),
                       ),
                     ),
-                    SizedBox(
+                  const  SizedBox(
                       height: 20,
                     ),
                     SizedBox(
                       height: 40,
                       width: 280,
                       child: TextFormField(
-                        controller: phone,
+                        controller: Provider.of<siginProvider>(context).phone,
                         keyboardType: TextInputType.phone,
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -240,52 +140,57 @@ class SiginupState extends State<Siginup> {
                           }
                         },
                         decoration: InputDecoration(
-                            label: Text("phone"), border: OutlineInputBorder()),
+                            label:const Text("phone"), border: OutlineInputBorder()),
                       ),
                     ),
-                    SizedBox(
+                  const  SizedBox(
                       height: 20,
                     ),
                     SizedBox(
                       height: 40,
                       width: 280,
                       child: TextFormField(
-                        controller: password,
-                        obscureText: secure,
+                        controller: Provider.of<siginProvider>(context).password,
+                        obscureText: Provider.of<siginProvider>(context).secure,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "please enter password";
+                          } else if (value.length < 6) {
+                            return "Enter a value of length 6";
                           }
                         },
                         decoration: InputDecoration(
                             suffixIcon: IconButton(
                                 onPressed: () {
-                                  setState(() {
-                                    secure = !secure;
-                                  });
+                                  Provider.of<siginProvider>(context,listen: false).security();
                                 },
-                                icon: secure == false
+                                icon: Provider.of<siginProvider>(context,listen: false).secure == false
                                     ? Icon(Icons.visibility)
                                     : Icon(Icons.visibility_off)),
-                            label: Text("password"),
+                            label:const Text("password"),
                             border: OutlineInputBorder()),
                       ),
                     ),
-                    SizedBox(
+                   const SizedBox(
                       height: 20,
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        bool validate = formkey.currentState!.validate();
+                        bool validate =
+                        Provider.of<siginProvider>(context,listen: false).formkey.currentState!.validate();
                         if (validate == true) {
-                          addUser();
+                          Provider.of<siginProvider>(context,listen: false).addUser(context);
+                          // addUser();
                         }
                       },
                       style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(Colors.red),
-                          minimumSize: MaterialStatePropertyAll(
-                              Size(double.infinity, 50))),
-                      child: Text("Sigin",style: TextStyle(color: Colors.white),),
+                          backgroundColor: MaterialStateProperty.all(Colors.red),
+                          minimumSize:
+                          MaterialStateProperty.all(Size(double.infinity, 50))),
+                      child:const Text(
+                        "Sigin",
+                        style:const TextStyle(color: Colors.white),
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -298,7 +203,7 @@ class SiginupState extends State<Siginup> {
                                 builder: (context) => Login(),
                               ));
                             },
-                            child: Text("log in"))
+                            child:const Text("log in"))
                       ],
                     )
                   ],

@@ -1,14 +1,35 @@
 
 import 'package:flutter/material.dart';
-import 'package:travel/BottomNavigator.dart';
-import 'package:travel/home.dart';
-import 'package:travel/login.dart';
-import 'package:travel/sigin.dart';
-import 'package:travel/profile.dart';
+import 'package:provider/provider.dart';
+import 'package:travel/Provider/booknowProvider.dart';
+import 'package:travel/Provider/enquiryProvider.dart';
+import 'package:travel/Provider/feedbackProvider.dart';
+import 'package:travel/Provider/homeProvider.dart';
+import 'package:travel/Provider/loginProvider.dart';
+import 'package:travel/Provider/makeapostProvider.dart';
+import 'package:travel/Provider/orderProvider.dart';
+import 'package:travel/Provider/profileProvider.dart';
+import 'package:travel/Provider/replyProvider.dart';
+import 'package:travel/Provider/siginProvider.dart';
+import 'package:travel/Provider/socialProvider.dart';
 import 'package:travel/splashscreen.dart';
 
 void main(){
-  runApp(MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => enquiryProvider()),
+      ChangeNotifierProvider(create: (context) => homeProvider(),),
+      ChangeNotifierProvider(create: (context) => profileProvider(),),
+      ChangeNotifierProvider(create: (context) => replyProvider(),),
+      ChangeNotifierProvider(create: (context) => socialProvider(),),
+      ChangeNotifierProvider(create: (context) => orderProvider(),),
+      ChangeNotifierProvider(create: (context) => feedbackProvider(),),
+      ChangeNotifierProvider(create: (context) => booknowProvider(),),
+      ChangeNotifierProvider(create: (context) => makeaProvider(),),
+      ChangeNotifierProvider(create: (context) => loginProvider(),),
+      ChangeNotifierProvider(create: (context) => siginProvider(),)
+    ],
+      child: MyApp()));
 }
 class MyApp extends StatefulWidget{
   const MyApp({Key? key}) : super(key: key);
