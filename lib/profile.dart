@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:travel/Feedback.dart';
 import 'package:travel/Provider/profileProvider.dart';
 import 'package:travel/ipdata.dart';
-import 'package:travel/MakePost.dart';
+import 'package:travel/widgets/Cust_poup_2.dart';
 
 class Profile extends StatelessWidget {
   @override
@@ -19,31 +18,7 @@ class Profile extends StatelessWidget {
         ),
         elevation: 0,
         actions: [
-          PopupMenuButton(
-            icon: Icon(Icons.more_vert),
-            itemBuilder: (context) {
-              return [
-                PopupMenuItem(
-                  child: Text("Post"),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => MakePost()));
-                  },
-                ),
-                PopupMenuItem(
-                  child:const Text("Feedback"),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Doubt()));
-                  },
-                ),
-                PopupMenuItem(
-                  child:const Text("Logout"),
-                  onTap: ()  {
-                     Provider.of<profileProvider>(context, listen: false).logout(context);
-                  },
-                ),
-              ];
-            },
-          ),
+          Profile_popup(),
         ],
       ),
       body: SingleChildScrollView(
@@ -134,3 +109,4 @@ class Profile extends StatelessWidget {
     );
   }
 }
+

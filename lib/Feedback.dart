@@ -41,8 +41,8 @@ class Doubt extends StatelessWidget {
                   child: TextField(
                     controller: feedback,
                     expands: false,
-                    minLines: 3,
-                    maxLines: 10,
+                    minLines:100,
+                    maxLines: 200,
                     decoration: InputDecoration(
                         border: OutlineInputBorder()
                     ),

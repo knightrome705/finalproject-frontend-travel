@@ -16,7 +16,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void checkLogin() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    // print(pref.getBool('user_logged'));
     final userLoginCred = pref.getBool('user_logged');
     if(userLoginCred ==true){
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNav(),));

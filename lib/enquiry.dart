@@ -36,8 +36,8 @@ class Enquiry extends StatelessWidget {
                 child: TextField(
                   controller: enquiry,
                   expands: false,
-                  minLines: 3,
-                  maxLines: 10,
+                  minLines: 100,
+                  maxLines: 200,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                   ),
