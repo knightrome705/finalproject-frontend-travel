@@ -64,6 +64,10 @@ class Profile extends StatelessWidget {
                             height: 200,
                             width: 200,
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.yellow,
+                                width: 10
+                              ),
                               image: DecorationImage(
                                 fit: BoxFit.fill,
                                 image: NetworkImage("${IpData.ip}/${IpData.image2}/${snapshot.data!["data"]["photo"]}"),
@@ -116,13 +120,7 @@ class Profile extends StatelessWidget {
                     snapshot.data!["data"]["email"],
                     style: GoogleFonts.vinaSans(fontSize: 25),
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    snapshot.data!["data"]["password"],
-                    style: GoogleFonts.vinaSans(fontSize: 25),
-                  ),
+
                 ],
               );
             } else {

@@ -57,12 +57,13 @@ class Homepage extends StatelessWidget {
         ],
       ),
       drawer: CustomDrawer(),
-      body: FutureBuilder(
+      body: FutureBuilder<Packages>(
         future: Provider.of<homeProvider>(context, listen: false).viewPackages(),
-        builder: (context,AsyncSnapshot snapshot) {
+        builder: (context,AsyncSnapshot<Packages> snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
-              itemCount: snapshot.data!["data"].length,
+              physics: BouncingScrollPhysics(),
+              itemCount: snapshot.data!.data!.length,
               itemBuilder: (context, index) {
                 return Column(
                   children: [
@@ -74,7 +75,7 @@ class Homepage extends StatelessWidget {
                           image: DecorationImage(
                             fit: BoxFit.fill,
                             image: NetworkImage(
-                              "${IpData.ip}/${IpData.image}/${snapshot.data["data"][index]["p_image"]}",
+                              "${IpData.ip}/${IpData.image}/${snapshot.data!.data![index].pImage}",
                             ),
                           ),
                           boxShadow: [
@@ -94,17 +95,17 @@ class Homepage extends StatelessWidget {
                                 onPressed: () {
                                   Provider.of<homeProvider>(context,listen: false).showSheet(
                                     context,
-                                    snapshot.data["data"][index]["p_id"],
-                                    snapshot.data["data"][index]["p_name"],
-                                    snapshot.data["data"][index]["p_description"],
-                                    "${IpData.ip}/${IpData.image}/${snapshot.data["data"][index]["p_image1"]}",
-                                    "${IpData.ip}/${IpData.image}/${snapshot.data["data"][index]["p_image2"]}",
+                                    snapshot.data!.data![index].pId!,
+                                    snapshot.data!.data![index].pName!,
+                                    snapshot.data!.data![index].pDescription!,
+                                    "${IpData.ip}/${IpData.image}/${snapshot.data!.data![index].pImage1}",
+                                    "${IpData.ip}/${IpData.image}/${snapshot.data!.data![index].pImage2}",
                                   );
                                 },
-                                child: Text("show"),
+                                child: Text("more",style: TextStyle(color: Colors.white),),
                                 style: ButtonStyle(
                                   minimumSize: MaterialStateProperty.all(Size(100, 40)),
-                                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                                  backgroundColor: MaterialStateProperty.all(Colors.red),
                                 ),
                               ),
                             ],

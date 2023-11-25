@@ -11,15 +11,17 @@ import 'package:travel/Models/Packages.dart';
 class homeProvider extends ChangeNotifier {
   var result;
   bool isSingleTrip = true;
-  Future viewPackages() async {
+  Future<Packages> viewPackages() async {
     Response response = await get(Uri.parse(
         "http://192.168.230.94/PHP/finalproject/API/view_packages_api.php"));
+    var result;
     if (response.statusCode == 200) {
       // final packages = packagesFromJson(response.body);
-       var result = jsonDecode(response.body);
+        result = Packages.fromJson(jsonDecode(response.body));
 
-      return result;
+
     }
+    return Packages.fromJson(jsonDecode(response.body));
   }
 
   void showSheet(BuildContext context,String p_id, String pkgName,String pkgDescription, String pkgImg, String pkgSecImg) {
@@ -49,9 +51,14 @@ class homeProvider extends ChangeNotifier {
                   );
                 }).toList(),
               ),
-
               SizedBox(
-                height: 80,
+                height: 20,
+              ),
+
+
+              Text("The travel application's intuitive itinerary feature helps users effortlessly plan their trips, ensuring a seamless and organized travel experience."),
+              SizedBox(
+                height: 40,
               ),
               ElevatedButton(onPressed: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>Conform(p_id: p_id,p_image: pkgImg,description:pkgDescription,p_name:pkgName)));
@@ -62,7 +69,7 @@ class homeProvider extends ChangeNotifier {
                           Size(double.infinity,50)
                       )
                   ),
-                  child: Text("Join now"))
+                  child: Text("Join now",style: TextStyle(color: Colors.white),))
             ],
           ),
         );

@@ -33,15 +33,19 @@ class Conform extends StatelessWidget {
             height: 200,
             width: 500,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
+              border: Border.all(
+                color: Colors.black,
+                width: 2
+              ),
               image: DecorationImage(
+                fit: BoxFit.fill,
                 image: NetworkImage(p_image),
               ),
             ),
           ),
           Text(
             description,
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 20,fontStyle: FontStyle.italic),
           ),
          const SizedBox(
             height: 20,
@@ -51,7 +55,10 @@ class Conform extends StatelessWidget {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => Enquiry()));
             },
-            child:const Text("Any Doubt?", style: TextStyle(fontSize: 20)),
+            child:const Text("Any Doubt?", style: TextStyle(fontSize:18,fontStyle: FontStyle.italic)),
+          ),
+           const SizedBox(
+            height: 100,
           ),
           Center(
             child: ElevatedButton(
@@ -67,13 +74,13 @@ class Conform extends StatelessWidget {
               },
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all(
-                  Size(150, 40),
+                  Size(double.infinity, 50),
                 ),
                 backgroundColor: MaterialStateProperty.all(
                   Colors.red,
                 ),
               ),
-              child:const Text("Book now"),
+              child:const Text("Book now",style: TextStyle(color: Colors.white),),
             ),
           ),
         ],

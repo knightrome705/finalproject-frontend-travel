@@ -20,10 +20,14 @@ class CustomDrawer extends StatelessWidget {
         children: [
           DrawerHeader(
             child: Container(
-              height: 100,
-              width: 100,
+              height: 120,
+              width: 120,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.yellow,
+                  width: 5
+                ),
                 image: DecorationImage(
                   image: NetworkImage(
                     "${IpData.ip}/${IpData.image2}/${Provider.of<homeProvider>(context).image}",

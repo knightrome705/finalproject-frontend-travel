@@ -25,6 +25,7 @@ class Social extends StatelessWidget {
           }
           if (snapshot.hasData) {
             return ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemCount: snapshot.data["data"].length,
               itemBuilder: (context, index) {
                 return Card(
