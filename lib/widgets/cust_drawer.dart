@@ -15,13 +15,15 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var height=MediaQuery.of(context).size.height;
+    var width=MediaQuery.of(context).size.width;
     return Drawer(
       child: Column(
         children: [
           DrawerHeader(
             child: Container(
-              height: 120,
-              width: 120,
+              height: height*0.30,
+              width: width*0.30,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
@@ -50,7 +52,7 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 20,
+            height: height*0.02,
           ),
           Card(
             child: ListTile(
@@ -65,8 +67,8 @@ class CustomDrawer extends StatelessWidget {
               leading:const Icon(Icons.group),
             ),
           ),
-          const SizedBox(
-            height: 20,
+           SizedBox(
+            height: height*0.02,
           ),
           Card(
             child: ListTile(
@@ -81,8 +83,8 @@ class CustomDrawer extends StatelessWidget {
               leading:const Icon(Icons.wallet_travel),
             ),
           ),
-          const SizedBox(
-            height: 20,
+           SizedBox(
+            height:height*0.02,
           ),
           Card(
             child: ListTile(
@@ -97,8 +99,8 @@ class CustomDrawer extends StatelessWidget {
               leading:const Icon(Icons.account_circle),
             ),
           ),
-          const SizedBox(
-            height: 20,
+           SizedBox(
+            height:height*0.02,
           ),
           Card(
             child: ListTile(
@@ -113,8 +115,8 @@ class CustomDrawer extends StatelessWidget {
               leading:const Icon(Icons.table_rows_sharp),
             ),
           ),
-          const SizedBox(
-            height: 20,
+           SizedBox(
+            height: height*0.02,
           ),
           Card(
             child: ListTile(

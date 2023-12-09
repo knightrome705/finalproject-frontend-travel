@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:travel/BottomNavigator.dart';
 import 'package:travel/Provider/booknowProvider.dart';
 import 'package:travel/Provider/enquiryProvider.dart';
 import 'package:travel/Provider/feedbackProvider.dart';
@@ -12,6 +13,7 @@ import 'package:travel/Provider/profileProvider.dart';
 import 'package:travel/Provider/replyProvider.dart';
 import 'package:travel/Provider/siginProvider.dart';
 import 'package:travel/Provider/socialProvider.dart';
+import 'package:travel/home.dart';
 import 'package:travel/splashscreen.dart';
 
 void main(){

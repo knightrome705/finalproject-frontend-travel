@@ -9,7 +9,8 @@ class Doubt extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<feedbackProvider>(context, listen: false).userCrenditails();
-
+    var height=MediaQuery.of(context).size.height;
+    var width=MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();

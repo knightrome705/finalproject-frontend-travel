@@ -5,6 +5,8 @@ import 'package:travel/Provider/orderProvider.dart';
 import 'package:travel/ipdata.dart';
 
 class Orders extends StatelessWidget {
+  const Orders({super.key});
+
   @override
   Widget build(BuildContext context) {
     Provider.of<orderProvider>(context, listen: false).userCrenditails();
@@ -22,7 +24,7 @@ class Orders extends StatelessWidget {
           // }
           if (snapshot.hasData) {
             if (snapshot.data['data'] == null) {
-              return Center(child: Text("No data"));
+              return const Center(child: Text("No data"));
             }
             return ListView.builder(
               itemCount: snapshot.data["data"].length,
@@ -46,7 +48,7 @@ class Orders extends StatelessWidget {
               },
             );
           } else {
-            return Center(
+            return const Center(
               child: Text("Something went wrong"),
             );
           }

@@ -7,8 +7,12 @@ import 'package:travel/Provider/socialProvider.dart';
 import 'package:travel/ipdata.dart';
 
 class Social extends StatelessWidget {
+  const Social({super.key});
+
   @override
   Widget build(BuildContext context) {
+    var height=MediaQuery.of(context).size.height;
+    var width=MediaQuery.of(context).size.width;
     Provider.of<socialProvider>(context, listen: false).userCrenditails();
 
     return Scaffold(
@@ -25,98 +29,98 @@ class Social extends StatelessWidget {
           }
           if (snapshot.hasData) {
             return ListView.builder(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemCount: snapshot.data["data"].length,
               itemBuilder: (context, index) {
                 return Card(
-                  child: Column(
-                    children: [
-                      ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              "${IpData.ip}/${IpData.image2}/${snapshot.data["data"][index]["photo"]}"),
-                        ),
-                        title: Text(snapshot.data["data"][index]["first_name"]),
-                        subtitle: Text(snapshot.data["data"][index]["email"]),
-                        trailing: IconButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title:const Text("Are you sure?"),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Provider.of<socialProvider>(context, listen: false)
-                                            .removePost(post_id: snapshot.data["data"][index]["post_id"]);
-                                        Fluttertoast.showToast(msg: "Removed");
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text("Remove"),
-                                    )
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                          icon: Icon(Icons.remove_circle),
-                        ),
-                      ),
-                      Container(
-                        height: 500,
-                        width: 500,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                "${IpData.ip}/${IpData.image2}/${snapshot.data["data"][index]["memories"]}"),
-                            fit: BoxFit.fill,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                "${IpData.ip}/${IpData.image2}/${snapshot.data["data"][index]["photo"]}"),
+                          ),
+                          title: Text(snapshot.data["data"][index]["first_name"]),
+                          subtitle: Text(snapshot.data["data"][index]["email"]),
+                          trailing: IconButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title:const Text("Are you sure?"),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Provider.of<socialProvider>(context, listen: false)
+                                              .removePost(post_id: snapshot.data["data"][index]["post_id"]);
+                                          Fluttertoast.showToast(msg: "Removed");
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text("Remove"),
+                                      )
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            icon: const Icon(Icons.remove_circle),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 10,
+                        Container(
+                          height:height*0.40,
+                          width: width,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  "${IpData.ip}/${IpData.image2}/${snapshot.data["data"][index]["memories"]}"),
+                              fit: BoxFit.fill,
+                            ),
                           ),
-                         const Icon(Icons.heart_broken_sharp, size: 35),
-                         const SizedBox(width: 35),
-                         const Icon(Icons.chat, size: 35),
-                         const  SizedBox(width: 20),
-                        const  Icon(Icons.share, size: 40),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                        const  SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            snapshot.data["data"][index]["title"],
-                            style: TextStyle(fontSize: 20)
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(width: 20),
-                          Text(
-                            snapshot.data["data"][index]["description"],
-                            style: TextStyle(fontSize: 15),
-                          )
-                        ],
-                      )
-                    ],
+                        ),
+                        SizedBox(
+                          height: height*0.1,
+                        ),
+                        Row(
+                          children: [
+                           const Icon(Icons.favorite, size: 35),
+                            SizedBox(width: width*0.03),
+                           const Icon(Icons.chat, size: 35),
+                             SizedBox(width: width*0.03),
+                          const  Icon(Icons.share, size: 40),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                           SizedBox(
+                              width: width*0.03,
+                            ),
+                            Text(
+                              snapshot.data["data"][index]["title"],
+                              style: const TextStyle(fontSize: 20)
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(width: width*0.02),
+                            Text(
+                              snapshot.data["data"][index]["description"],
+                              style: const TextStyle(fontSize: 15),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 );
               },
             );
           } else {
-            return Center(
+            return const Center(
               child: Text("Something went wrong"),
             );
           }

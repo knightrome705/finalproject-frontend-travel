@@ -14,7 +14,7 @@ class profileProvider extends ChangeNotifier{
     var user = {"id": user_id};
     Response response = await post(
         Uri.parse(
-            "http://192.168.230.94/PHP/finalproject/API/view_user_api.php"),
+            "http://192.168.1.72/PHP/finalproject/API/view_user_api.php"),
         body: user);
 
     if (response.statusCode == 200) {

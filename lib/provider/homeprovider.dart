@@ -13,7 +13,7 @@ class homeProvider extends ChangeNotifier {
   bool isSingleTrip = true;
   Future<Packages> viewPackages() async {
     Response response = await get(Uri.parse(
-        "http://192.168.230.94/PHP/finalproject/API/view_packages_api.php"));
+        "http://192.168.1.72/PHP/finalproject/API/view_packages_api.php"));
     var result;
     if (response.statusCode == 200) {
       // final packages = packagesFromJson(response.body);
@@ -24,7 +24,7 @@ class homeProvider extends ChangeNotifier {
     return Packages.fromJson(jsonDecode(response.body));
   }
 
-  void showSheet(BuildContext context,String p_id, String pkgName,String pkgDescription, String pkgImg, String pkgSecImg) {
+  void showSheet(BuildContext context,String p_id, String pkgName,String pkgDescription, String pkgImg, String pkgSecImg,height,width) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -35,7 +35,7 @@ class homeProvider extends ChangeNotifier {
             children: [
               Text(pkgName,style: TextStyle(fontSize: 30,fontStyle: FontStyle.italic,fontWeight: FontWeight.bold),),
               CarouselSlider(
-                options: CarouselOptions(height:250,autoPlay: true,autoPlayInterval: Duration(seconds:1)),
+                options: CarouselOptions(height:height*0.25,autoPlay: true,autoPlayInterval: Duration(seconds:1)),
                 items: [pkgImg, pkgSecImg].map((i) {
                   return Builder(
                     builder: (BuildContext context) {
@@ -52,13 +52,13 @@ class homeProvider extends ChangeNotifier {
                 }).toList(),
               ),
               SizedBox(
-                height: 20,
+                height: height*0.02,
               ),
 
 
               Text("The travel application's intuitive itinerary feature helps users effortlessly plan their trips, ensuring a seamless and organized travel experience."),
               SizedBox(
-                height: 40,
+                height: height*0.04,
               ),
               ElevatedButton(onPressed: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>Conform(p_id: p_id,p_image: pkgImg,description:pkgDescription,p_name:pkgName)));
@@ -66,7 +66,7 @@ class homeProvider extends ChangeNotifier {
                   style: ButtonStyle(
                       backgroundColor:MaterialStatePropertyAll(Colors.red),
                       minimumSize: MaterialStatePropertyAll(
-                          Size(double.infinity,50)
+                          Size(width,height*0.05)
                       )
                   ),
                   child: Text("Join now",style: TextStyle(color: Colors.white),))

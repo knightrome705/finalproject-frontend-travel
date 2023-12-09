@@ -16,13 +16,13 @@ class Replies extends StatelessWidget {
         future: Provider.of<replyProvider>(context, listen: false).repliesfromAdmin(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
           if (snapshot.hasData) {
             if (snapshot.data['data'] == null) {
-              return Center(child: Text("No data"));
+              return const Center(child: Text("No data"));
             } else {
               return ListView.builder(
                 itemCount: snapshot.data["data"].length,
@@ -30,7 +30,7 @@ class Replies extends StatelessWidget {
                   return ListTile(
                     title: Text(
                       snapshot.data["data"][index]["reply"],
-                      style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+                      style: const TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
                     ),
                     subtitle: Text(snapshot.data["data"][index]["quires"] ?? "No data"),
                     trailing: ElevatedButton(
@@ -38,7 +38,7 @@ class Replies extends StatelessWidget {
                         Provider.of<replyProvider>(context, listen: false)
                             .removeReply(id: snapshot.data["data"][index]["q_id"]);
                       },
-                      child: Text("Clear"),
+                      child: const Text("Clear"),
                     ),
                   );
                 },

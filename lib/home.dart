@@ -9,6 +9,8 @@ import 'package:travel/widgets/cust_drawer.dart';
 class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var height=MediaQuery.of(context).size.height;
+    var width=MediaQuery.of(context).size.width;
     Provider.of<homeProvider>(context, listen: false).userCrenditails();
     Future.delayed(Duration(seconds: 1)).whenComplete(() => Provider.of<homeProvider>(context, listen: false).getUser());
     return Scaffold(
@@ -36,8 +38,8 @@ class Homepage extends StatelessWidget {
                   children: [
                     Card(
                       child: Container(
-                        height: 200,
-                        width: 400,
+                        height: height*0.30,
+                        width: width,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             fit: BoxFit.fill,
@@ -67,11 +69,12 @@ class Homepage extends StatelessWidget {
                                     snapshot.data!.data![index].pDescription!,
                                     "${IpData.ip}/${IpData.image}/${snapshot.data!.data![index].pImage1}",
                                     "${IpData.ip}/${IpData.image}/${snapshot.data!.data![index].pImage2}",
+                                    height,width
                                   );
                                 },
                                 child: Text("more",style: TextStyle(color: Colors.white),),
                                 style: ButtonStyle(
-                                  minimumSize: MaterialStateProperty.all(Size(100, 40)),
+                                  minimumSize: MaterialStateProperty.all(Size(width*0.10,height*0.05)),
                                   backgroundColor: MaterialStateProperty.all(Colors.red),
                                 ),
                               ),

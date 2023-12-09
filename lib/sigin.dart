@@ -8,6 +8,8 @@ import 'package:travel/login.dart';
 class Siginup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var height=MediaQuery.of(context).size.height;
+    var width=MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -17,8 +19,8 @@ class Siginup extends StatelessWidget {
         backgroundColor: Colors.blue,
         body: Center(
           child: Container(
-            height: 600,
-            width: 350,
+            height: height*0.80,
+            width: width*0.90,
             color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.all(20),
@@ -31,20 +33,20 @@ class Siginup extends StatelessWidget {
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: height*0.01,
                     ),
                     Stack(
                       children: [
                         Provider.of<siginProvider>(context).image == null
                             ? Container(
-                          height: 100,
-                          width: 100,
+                          height: height*0.15,
+                          width: width*0.25,
                           decoration: BoxDecoration(
                               color: Colors.red, shape: BoxShape.circle),
                         )
                             : Container(
-                          height: 100,
-                          width: 100,
+                          height: height*0.15,
+                          width: width*0.25,
                           decoration: BoxDecoration(
                             color: Colors.red,
                             shape: BoxShape.circle,
@@ -65,70 +67,73 @@ class Siginup extends StatelessWidget {
                                 icon:const Icon(Icons.add_a_photo)))
                       ],
                     ),
-                   const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: height*0.02,
                     ),
                     SizedBox(
-                      height: 40,
-                      width: 280,
+                      height: height*0.055,
+                      width: width*0.7,
                       child: TextFormField(
                         controller: Provider.of<siginProvider>(context).first_name,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "please enter your first name";
                           }
+                          return null;
                         },
-                        decoration: InputDecoration(
-                            label:const Text("first_name"),
+                        decoration: const InputDecoration(
+                            label:Text("first_name"),
                             border: OutlineInputBorder()),
                       ),
                     ),
-                   const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: height*0.02,
                     ),
                     SizedBox(
-                      height: 40,
-                      width: 280,
+                      height:height*0.055,
+                      width: width*0.7,
                       child: TextFormField(
                         controller: Provider.of<siginProvider>(context).last_name,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "please enter your last name";
                           }
+                          return null;
                         },
-                        decoration: InputDecoration(
-                            label:const Text("last name"),
+                        decoration: const InputDecoration(
+                            label:Text("last name"),
                             border: OutlineInputBorder()),
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: height*0.02,
                     ),
                     SizedBox(
-                      height: 40,
-                      width: 280,
+                      height: height*0.055,
+                      width: width*0.7,
                       child: TextFormField(
                         controller: Provider.of<siginProvider>(context).email,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
-                          final RegExp _emailRegex =
+                          final RegExp emailRegex =
                           RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
                           if (value!.isEmpty) {
                             return "please enter your email";
-                          } else if (!_emailRegex.hasMatch(value)) {
+                          } else if (!emailRegex.hasMatch(value)) {
                             return "Enter a valid email";
                           }
+                          return null;
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             label: Text("Email"), border: OutlineInputBorder()),
                       ),
                     ),
-                  const  SizedBox(
-                      height: 20,
+                   SizedBox(
+                      height: height*0.02,
                     ),
                     SizedBox(
-                      height: 40,
-                      width: 280,
+                      height: height*0.055,
+                      width: width*0.7,
                       child: TextFormField(
                         controller: Provider.of<siginProvider>(context).phone,
                         keyboardType: TextInputType.phone,
@@ -138,17 +143,18 @@ class Siginup extends StatelessWidget {
                           } else if (value.length < 10 && value.length > 10) {
                             return "please enter a valid number";
                           }
+                          return null;
                         },
-                        decoration: InputDecoration(
-                            label:const Text("phone"), border: OutlineInputBorder()),
+                        decoration: const InputDecoration(
+                            label:Text("phone"), border: OutlineInputBorder()),
                       ),
                     ),
-                  const  SizedBox(
-                      height: 20,
+                   SizedBox(
+                      height:height*0.02,
                     ),
                     SizedBox(
-                      height: 40,
-                      width: 280,
+                      height: height*0.055,
+                      width:  width*0.7,
                       child: TextFormField(
                         controller: Provider.of<siginProvider>(context).password,
                         obscureText: Provider.of<siginProvider>(context).secure,
@@ -158,6 +164,7 @@ class Siginup extends StatelessWidget {
                           } else if (value.length < 6) {
                             return "Enter a value of length 6";
                           }
+                          return null;
                         },
                         decoration: InputDecoration(
                             suffixIcon: IconButton(
@@ -165,14 +172,14 @@ class Siginup extends StatelessWidget {
                                   Provider.of<siginProvider>(context,listen: false).security();
                                 },
                                 icon: Provider.of<siginProvider>(context,listen: false).secure == false
-                                    ? Icon(Icons.visibility)
-                                    : Icon(Icons.visibility_off)),
+                                    ? const Icon(Icons.visibility)
+                                    : const Icon(Icons.visibility_off)),
                             label:const Text("password"),
-                            border: OutlineInputBorder()),
+                            border: const OutlineInputBorder()),
                       ),
                     ),
-                   const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: height*0.02,
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -186,7 +193,7 @@ class Siginup extends StatelessWidget {
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(Colors.red),
                           minimumSize:
-                          MaterialStateProperty.all(Size(double.infinity, 50))),
+                          MaterialStateProperty.all(Size(double.infinity, height*0.06))),
                       child:const Text(
                         "Sigin",
                         style:const TextStyle(color: Colors.white),

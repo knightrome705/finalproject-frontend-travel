@@ -9,58 +9,56 @@ class Enquiry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<enquiryProvider>(context).userCrenditails();
-
-    return Scaffold(
-      appBar: AppBar(
-        title:const Text("TraVel"),
-      ),
-      body: Column(
-        children: [
-          Row(
+    var height=MediaQuery.of(context).size.height;
+    var width=MediaQuery.of(context).size.width;
+    return GestureDetector(
+      onTap: (){
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title:const Text("TraVel"),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+          child: Column(
             children: [
-              SizedBox(
-                width: 20,
+              Row(
+                children: [
+                  const Text(
+                    "Enquiry:",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
               ),
-             const Text(
-                "Enquiry:",
-                style: TextStyle(fontSize: 20),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(
-                height: 250,
-                width: 350,
-                child: TextField(
+              TextField(
                   controller: enquiry,
                   expands: false,
-                  minLines: 100,
-                  maxLines: 200,
+                  minLines: 10,
+                  maxLines: 25,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                   ),
                 ),
+              SizedBox(
+                height: height*0.05,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Provider.of<enquiryProvider>(context, listen: false).enquiryPackage(
+                    enquiry: enquiry,
+                    user_id: Provider.of<enquiryProvider>(context, listen: false).user_id,
+                  );
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => BottomNav()),
+                  );
+                },
+                child:const Text("Submit"),
               ),
             ],
           ),
-          SizedBox(
-            height: 50,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Provider.of<enquiryProvider>(context, listen: false).enquiryPackage(
-                enquiry: enquiry,
-                user_id: Provider.of<enquiryProvider>(context, listen: false).user_id,
-              );
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => BottomNav()),
-              );
-            },
-            child:const Text("Submit"),
-          ),
-        ],
+        ),
       ),
     );
   }

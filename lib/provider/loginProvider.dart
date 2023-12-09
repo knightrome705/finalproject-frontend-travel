@@ -14,7 +14,7 @@ class loginProvider with ChangeNotifier {
   Future logIn({required email,required password,required BuildContext context}) async {
     var data = {"email": email, "password": password};
     Response response = await post(
-      Uri.parse("http://192.168.230.94/PHP/finalproject/API/get_user_api.php"),
+      Uri.parse("http://192.168.1.72/PHP/finalproject/API/get_user_api.php"),
       body: data,
     );
 
