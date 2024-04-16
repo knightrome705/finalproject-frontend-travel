@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:travel/BottomNavigator.dart';
+
+import '../pages/bottom_nav/BottomNavigator.dart';
+// import 'package:travel/BottomNavigator.dart';
 
 class loginProvider with ChangeNotifier {
   int user_id = 0;

@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:travel/Provider/profileProvider.dart';
-import 'package:travel/ipdata.dart';
-import 'package:travel/widgets/Cust_poup_2.dart';
+
+import '../../constants/ipdata.dart';
+import '../../ui/widget/Cust_poup_2.dart';
+
 
 class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var height=MediaQuery.of(context).size.height;
-    var width=MediaQuery.of(context).size.width;
+    // var height=MediaQuery.of(context).size.height;
+    // var width=MediaQuery.of(context).size.width;
     Provider.of<profileProvider>(context, listen: false).userCrenditails();
     return Scaffold(
       appBar: AppBar(
@@ -19,7 +21,7 @@ class Profile extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         elevation: 0,
-        actions: [
+        actions:const [
           Profile_popup(),
         ],
       ),
@@ -33,6 +35,20 @@ class Profile extends StatelessWidget {
                   Container(
                     height: 400,
                     width: double.infinity,
+                    decoration:const BoxDecoration(
+                      color: Colors.blue,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 2,
+                          spreadRadius: 5,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(50),
+                        bottomRight: Radius.circular(50),
+                      ),
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.all(100),
                       child: Column(
@@ -56,20 +72,6 @@ class Profile extends StatelessWidget {
                         ],
                       ),
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      boxShadow: [
-                       const BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 2,
-                          spreadRadius: 5,
-                        ),
-                      ],
-                      borderRadius: BorderRadius.only(
-                        bottomLeft:const Radius.circular(50),
-                        bottomRight:const Radius.circular(50),
-                      ),
-                    ),
                   ),
                  const SizedBox(
                     height: 50,
@@ -90,7 +92,7 @@ class Profile extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Text(
@@ -101,7 +103,7 @@ class Profile extends StatelessWidget {
                 ],
               );
             } else {
-              return Center(
+              return const Center(
                 child: Text("Something went wrong"),
               );
             }

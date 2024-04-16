@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel/Models/Packages.dart';
 import 'package:travel/Provider/homeProvider.dart';
-import 'package:travel/ipdata.dart';
-import 'package:travel/widgets/Cust_popup.dart';
-import 'package:travel/widgets/cust_drawer.dart';
+import 'package:travel/ui/widget/cust_drawer.dart';
+
+import '../../constants/ipdata.dart';
+import '../../ui/widget/Cust_popup.dart';
+
 
 class Homepage extends StatelessWidget {
+  const Homepage({super.key});
+
   @override
   Widget build(BuildContext context) {
     var height=MediaQuery.of(context).size.height;
     var width=MediaQuery.of(context).size.width;
     Provider.of<homeProvider>(context, listen: false).userCrenditails();
-    Future.delayed(Duration(seconds: 1)).whenComplete(() => Provider.of<homeProvider>(context, listen: false).getUser());
+    Future.delayed(const Duration(seconds: 1)).whenComplete(() => Provider.of<homeProvider>(context, listen: false).getUser());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -21,11 +25,11 @@ class Homepage extends StatelessWidget {
           style: TextStyle(color: Colors.black),
         ),
         elevation: 0,
-        actions: [
+        actions:const [
           PopupMenu(),
         ],
       ),
-      drawer: CustomDrawer(),
+      drawer:const CustomDrawer(),
       body: FutureBuilder<Packages>(
         future: Provider.of<homeProvider>(context, listen: false).viewPackages(),
         builder: (context,AsyncSnapshot<Packages> snapshot) {
@@ -47,7 +51,7 @@ class Homepage extends StatelessWidget {
                               "${IpData.ip}/${IpData.image}/${snapshot.data!.data![index].pImage}",
                             ),
                           ),
-                          boxShadow: [
+                          boxShadow:const [
                             BoxShadow(
                               color: Colors.grey,
                               blurRadius: 2,
@@ -72,11 +76,11 @@ class Homepage extends StatelessWidget {
                                     height,width
                                   );
                                 },
-                                child: Text("more",style: TextStyle(color: Colors.white),),
                                 style: ButtonStyle(
                                   minimumSize: MaterialStateProperty.all(Size(width*0.10,height*0.05)),
                                   backgroundColor: MaterialStateProperty.all(Colors.red),
                                 ),
+                                child:const Text("more",style: TextStyle(color: Colors.white),),
                               ),
                             ],
                           ),

@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:travel/Booknow.dart';
+// import 'package:travel/Booknow.dart';
 import 'package:travel/Models/Packages.dart';
+
+import '../pages/booking/Booknow.dart';
 
 class homeProvider extends ChangeNotifier {
   var result;
@@ -14,7 +16,7 @@ class homeProvider extends ChangeNotifier {
   Future<Packages> viewPackages() async {
     Response response = await get(Uri.parse(
         "http://192.168.1.72/PHP/finalproject/API/view_packages_api.php"));
-    var result;
+    // var result;
     if (response.statusCode == 200) {
       // final packages = packagesFromJson(response.body);
         result = Packages.fromJson(jsonDecode(response.body));
@@ -33,15 +35,15 @@ class homeProvider extends ChangeNotifier {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(pkgName,style: TextStyle(fontSize: 30,fontStyle: FontStyle.italic,fontWeight: FontWeight.bold),),
+              Text(pkgName,style:const TextStyle(fontSize: 30,fontStyle: FontStyle.italic,fontWeight: FontWeight.bold),),
               CarouselSlider(
-                options: CarouselOptions(height:height*0.25,autoPlay: true,autoPlayInterval: Duration(seconds:1)),
+                options: CarouselOptions(height:height*0.25,autoPlay: true,autoPlayInterval:const Duration(seconds:1)),
                 items: [pkgImg, pkgSecImg].map((i) {
                   return Builder(
                     builder: (BuildContext context) {
                       return Container(
                         width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        margin:const EdgeInsets.symmetric(horizontal: 5.0),
                         decoration: BoxDecoration(
                             // color: Colors.amber,
                             image: DecorationImage(

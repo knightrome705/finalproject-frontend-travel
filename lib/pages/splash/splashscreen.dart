@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:travel/BottomNavigator.dart';
-import 'package:travel/login.dart';
+
+import '../bottom_nav/BottomNavigator.dart';
+import '../login/login.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

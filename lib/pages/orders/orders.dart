@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel/Provider/orderProvider.dart';
-import 'package:travel/ipdata.dart';
+
+import '../../constants/ipdata.dart';
+// import 'package:travel/ipdata.dart';
 
 class Orders extends StatelessWidget {
   const Orders({super.key});

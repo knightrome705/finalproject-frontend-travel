@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:travel/BottomNavigator.dart';
 import 'package:travel/Provider/booknowProvider.dart';
-import 'package:travel/enquiry.dart';
+
+import '../bottom_nav/BottomNavigator.dart';
+import '../feedback/enquiry.dart';
+
 
 class Conform extends StatelessWidget {
   final String p_id, p_name, p_image, description;

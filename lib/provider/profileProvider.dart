@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:travel/login.dart';
+
+import '../pages/login/login.dart';
+// import 'package:travel/login.dart';
 
 class profileProvider extends ChangeNotifier{
 

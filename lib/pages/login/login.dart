@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel/Provider/loginProvider.dart';
-import 'package:travel/sigin.dart';
+
+import '../sigin/sigin.dart';
 
 class Login extends StatelessWidget {
   @override

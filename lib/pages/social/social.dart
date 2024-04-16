@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:travel/Provider/socialProvider.dart';
-import 'package:travel/ipdata.dart';
+
+import '../../constants/ipdata.dart';
+// import 'package:travel/ipdata.dart';
 
 class Social extends StatelessWidget {
   const Social({super.key});

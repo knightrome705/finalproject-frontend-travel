@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:travel/login.dart';
+// import 'package:travel/login.dart';
 import 'package:http/http.dart' as http;
+
+import '../pages/login/login.dart';
 
 class siginProvider extends ChangeNotifier{
   XFile? image;

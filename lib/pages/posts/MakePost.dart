@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:travel/BottomNavigator.dart';
+// import 'package:travel/BottomNavigator.dart';
 import 'package:travel/Provider/makeapostProvider.dart';
+
+import '../bottom_nav/BottomNavigator.dart';
 
 class MakePost extends StatelessWidget {
   const MakePost({Key? key}) : super(key: key);

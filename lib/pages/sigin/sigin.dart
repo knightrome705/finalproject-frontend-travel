@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel/Provider/siginProvider.dart';
-import 'package:travel/login.dart';
+
+import '../login/login.dart';
+// import 'package:travel/login.dart';
 
 class Siginup extends StatelessWidget {
   @override
@@ -28,7 +30,7 @@ class Siginup extends StatelessWidget {
                 key: Provider.of<siginProvider>(context).formkey,
                 child: Column(
                   children: [
-                    Text(
+                   const Text(
                       "SIGIN UP",
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
@@ -41,7 +43,7 @@ class Siginup extends StatelessWidget {
                             ? Container(
                           height: height*0.15,
                           width: width*0.25,
-                          decoration: BoxDecoration(
+                          decoration:const BoxDecoration(
                               color: Colors.red, shape: BoxShape.circle),
                         )
                             : Container(
@@ -196,13 +198,13 @@ class Siginup extends StatelessWidget {
                           MaterialStateProperty.all(Size(double.infinity, height*0.06))),
                       child:const Text(
                         "Sigin",
-                        style:const TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Already have an account?"),
+                       const Text("Already have an account?"),
                         TextButton(
                             onPressed: () {
                               Navigator.of(context)

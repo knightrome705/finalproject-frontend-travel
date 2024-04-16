@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:travel/BottomNavigator.dart';
+// import 'package:travel/BottomNavigator.dart';
 import 'package:travel/Provider/enquiryProvider.dart';
+
+import '../bottom_nav/BottomNavigator.dart';
 
 class Enquiry extends StatelessWidget {
   final TextEditingController enquiry = TextEditingController();
